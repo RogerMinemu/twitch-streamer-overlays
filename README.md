@@ -17,6 +17,10 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/RogerMinemu/twitch-streamer-overlays/releases/latest"><img alt="Download for Windows" src="https://img.shields.io/badge/Download-for%20Windows-9146FF?style=for-the-badge"></a>
+</p>
+
+<p align="center">
   <img src="docs/images/hero.jpg" width="900" alt="A game with the streamer's camera, background removed, in the bottom-left corner and the Twitch chat on the right, both drawn on top of the game">
 </p>
 
@@ -81,7 +85,16 @@ Closing the panel doesn't quit the app: it stays in the system tray. To exit, us
 
 ## Getting started
 
-**Requirements:** Windows 10 or 11, and [Node.js](https://nodejs.org) 20+ to run it from source. NVIDIA Broadcast is optional.
+### Download
+
+Get **`TwitchStreamerOverlays-Setup-<version>.exe`** from the [latest release](https://github.com/RogerMinemu/twitch-streamer-overlays/releases/latest) and run it. If you'd rather not install anything, there is also a portable version. You need Windows 10 or 11; NVIDIA Broadcast is optional.
+
+> [!NOTE]
+> The executables are **not code-signed**. The first time you run one, Windows SmartScreen shows *"Windows protected your PC"*. Click **More info → Run anyway**. Each release lists SHA-256 checksums so you can verify the download.
+
+### Run from source
+
+**Requirements:** Windows 10 or 11 and [Node.js](https://nodejs.org) 20+.
 
 ```bash
 git clone https://github.com/RogerMinemu/twitch-streamer-overlays.git
@@ -102,9 +115,6 @@ You get two files in `dist/`:
 | --- | --- |
 | `Twitch Streamer Overlays Setup 0.1.0.exe` | **Installer.** Per-user install (no admin rights), with shortcuts and an uninstaller. Fast startup. |
 | `Twitch Streamer Overlays 0.1.0 Portable.exe` | **Portable.** Installs nothing, but unpacks itself to a temp folder on every launch, so it starts a few seconds slower. |
-
-> [!NOTE]
-> The executables are **not code-signed**. The first time you run one, Windows SmartScreen shows *"Windows protected your PC"*. Click **More info → Run anyway**.
 
 ## How to use
 
