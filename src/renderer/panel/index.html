@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Twitch Streamer Overlays</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <header class="panel-header">
+      <div>
+        <h1>Twitch Streamer Overlays</h1>
+        <p id="lock-status" class="lock-status"></p>
+      </div>
+      <button id="lock-button" type="button" class="primary-button"></button>
+    </header>
+    <p id="hotkey-hint" class="hint"></p>
+
+    <!-- ============================== CAMERA ============================== -->
+    <section class="card">
+      <header class="card-header">
+        <h2>Cámara</h2>
+        <label class="toggle"><input type="checkbox" data-bind="camera.visible" /> Mostrar</label>
+      </header>
+
+      <label class="field">
+        <span>Dispositivo</span>
+        <select id="camera-device" data-bind="camera.deviceId"></select>
+      </label>
+
+      <label class="toggle"><input type="checkbox" data-bind="camera.mirror" /> Efecto espejo</label>
+
+      <label class="field">
+        <span>Opacidad <output data-display="camera.opacity" data-format="percent"></output></span>
+        <input type="range" min="0.05" max="1" step="0.05" data-bind="camera.opacity" />
+      </label>
+
+      <label class="field">
+        <span>Bordes redondeados <output data-display="camera.cornerRadius" data-format="percentRaw"></output></span>
+        <input type="range" min="0" max="50" step="1" data-bind="camera.cornerRadius" />
+      </label>
+
+      <fieldset class="bounds">
+        <legend>Posición y tamaño (px)</legend>
+        <label>X <input type="number" step="1" data-bind="camera.bounds.x" data-commit="change" /></label>
+        <label>Y <input type="number" step="1" data-bind="camera.bounds.y" data-commit="change" /></label>
+        <label>Ancho <input type="number" min="120" step="1" data-bind="camera.bounds.width" data-commit="change" /></label>
+        <label>Alto <input type="number" min="80" step="1" data-bind="camera.bounds.height" data-commit="change" /></label>
+      </fieldset>
+
+      <h3>Fondo transparente</h3>
+      <label class="field">
+        <span>Modo</span>
+        <select data-bind="camera.keyMode">
+          <option value="none">Sin recorte</option>
+          <option value="native">Transparencia nativa (NVIDIA Broadcast)</option>
+          <option value="chroma">Chroma key (recortar un color)</option>
+          <option value="luma">Recortar negro</option>
+        </select>
+      </label>
+
+      <div data-show-when="camera.keyMode=native">
+        <p id="native-status" class="status-line"></p>
+        <p class="hint">
+          En NVIDIA Broadcast activá <em>Eliminación de fondo</em> (no <em>Reemplazo</em>). La app lee
+          la cámara por DirectShow, como OBS, para conservar la transparencia que Chromium descarta.
+        </p>
+      </div>
+
+      <div data-show-when="camera.keyMode=chroma">
+        <label class="field field-inline">
+          <span>Color a recortar</span>
+          <input type="color" data-bind="camera.keyColor" />
+        </label>
+        <label class="field">
+          <span>Similitud <output data-display="camera.similarity" data-format="decimal"></output></span>
+          <input type="range" min="0" max="1" step="0.01" data-bind="camera.similarity" />
+        </label>
+        <label class="field">
+          <span>Suavizado <output data-display="camera.smoothness" data-format="decimal"></output></span>
+          <input type="range" min="0.01" max="0.5" step="0.01" data-bind="camera.smoothness" />
+        </label>
+        <label class="field">
+          <span>Reducir halo verde <output data-display="camera.spill" data-format="decimal"></output></span>
+          <input type="range" min="0.01" max="0.5" step="0.01" data-bind="camera.spill" />
+        </label>
+      </div>
+
+      <div data-show-when="camera.keyMode=luma">
+        <label class="field">
+          <span>Umbral de negro <output data-display="camera.lumaThreshold" data-format="decimal"></output></span>
+          <input type="range" min="0" max="0.5" step="0.01" data-bind="camera.lumaThreshold" />
+        </label>
+        <label class="field">
+          <span>Suavizado <output data-display="camera.smoothness" data-format="decimal"></output></span>
+          <input type="range" min="0.01" max="0.5" step="0.01" data-bind="camera.smoothness" />
+        </label>
+      </div>
+
+      <div class="callout" data-show-when="camera.keyMode=chroma">
+        <strong>Chroma key con NVIDIA Broadcast:</strong> activá <em>Reemplazo de fondo</em> con esta
+        imagen verde. Usalo solo si la transparencia nativa no te funciona.
+        <button id="green-screen-button" type="button" class="secondary-button">Generar imagen verde</button>
+      </div>
+    </section>
+
+    <!-- =============================== CHAT =============================== -->
+    <section class="card">
+      <header class="card-header">
+        <h2>Chat</h2>
+        <label class="toggle"><input type="checkbox" data-bind="chat.visible" /> Mostrar</label>
+      </header>
+
+      <label class="field">
+        <span>Canal de Twitch</span>
+        <input
+          type="text"
+          placeholder="tu_canal o https://twitch.tv/tu_canal"
+          spellcheck="false"
+          data-bind="chat.channel"
+          data-commit="change"
+        />
+      </label>
+      <p id="chat-status" class="status-line"></p>
+
+      <label class="field">
+        <span>Opacidad <output data-display="chat.opacity" data-format="percent"></output></span>
+        <input type="range" min="0.05" max="1" step="0.05" data-bind="chat.opacity" />
+      </label>
+
+      <label class="field">
+        <span>Fondo del chat <output data-display="chat.backgroundOpacity" data-format="percent"></output></span>
+        <input type="range" min="0" max="1" step="0.05" data-bind="chat.backgroundOpacity" />
+      </label>
+
+      <label class="field">
+        <span>Tamaño de letra <output data-display="chat.fontSize" data-format="px"></output></span>
+        <input type="range" min="10" max="48" step="1" data-bind="chat.fontSize" />
+      </label>
+
+      <label class="field">
+        <span>Mensajes en pantalla <output data-display="chat.maxMessages" data-format="integer"></output></span>
+        <input type="range" min="10" max="200" step="5" data-bind="chat.maxMessages" />
+      </label>
+
+      <label class="field">
+        <span>Ocultar mensajes tras <output data-display="chat.messageLifetime" data-format="seconds"></output></span>
+        <input type="range" min="0" max="300" step="5" data-bind="chat.messageLifetime" />
+      </label>
+
+      <fieldset class="bounds">
+        <legend>Posición y tamaño (px)</legend>
+        <label>X <input type="number" step="1" data-bind="chat.bounds.x" data-commit="change" /></label>
+        <label>Y <input type="number" step="1" data-bind="chat.bounds.y" data-commit="change" /></label>
+        <label>Ancho <input type="number" min="120" step="1" data-bind="chat.bounds.width" data-commit="change" /></label>
+        <label>Alto <input type="number" min="80" step="1" data-bind="chat.bounds.height" data-commit="change" /></label>
+      </fieldset>
+    </section>
+
+    <footer class="panel-footer">
+      <button id="reset-button" type="button" class="secondary-button">Restablecer posiciones</button>
+      <p class="hint">
+        Tip: el juego tiene que estar en <strong>ventana sin bordes</strong>. En pantalla completa
+        exclusiva Windows no deja dibujar nada encima.
+      </p>
+    </footer>
+
+    <script type="module" src="panel.js"></script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+.camera-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.camera-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* The <video> is only a frame source for WebGL: kept in the DOM but invisible. */
+.camera-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Fallback without WebGL: show the raw video (no background keying). */
+.no-webgl .camera-canvas {
+  display: none;
+}
+
+.no-webgl .camera-video {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  object-fit: cover;
+}
+
+.no-webgl.is-mirrored .camera-video {
+  transform: scaleX(-1);
+}
+
+.camera-message {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 5;
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 0.75);
+  color: #fff;
+  font-size: 12px;
+}

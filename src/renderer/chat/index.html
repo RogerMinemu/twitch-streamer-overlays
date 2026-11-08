@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://static-cdn.jtvnw.net; connect-src wss://irc-ws.chat.twitch.tv"
+    />
+    <title>Overlay · Chat</title>
+    <link rel="stylesheet" href="../shared/overlay-frame.css" />
+    <link rel="stylesheet" href="chat.css" />
+  </head>
+  <body>
+    <div class="overlay-content">
+      <div class="chat-root">
+        <ul id="chat-messages" class="chat-messages"></ul>
+      </div>
+      <p id="chat-status" class="chat-status"></p>
+    </div>
+    <script type="module" src="chat.js"></script>
+  </body>
+</html>

@@ -1,0 +1,251 @@
+:root {
+  color-scheme: dark;
+  --bg: #0e0e10;
+  --card: #18181b;
+  --border: #2f2f35;
+  --text: #efeff1;
+  --muted: #adadb8;
+  --accent: #9146ff;
+  --accent-hover: #772ce8;
+  --warning: #ffb31a;
+  --ok: #00c87a;
+  --danger: #ff5c5c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.4 "Segoe UI", system-ui, sans-serif;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+h3 {
+  margin: 16px 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---- Header / lock ---- */
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lock-status {
+  margin: 2px 0 0;
+  color: var(--warning);
+  font-size: 13px;
+}
+
+.is-locked .lock-status {
+  color: var(--ok);
+}
+
+.primary-button {
+  flex-shrink: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.primary-button:hover {
+  background: var(--accent-hover);
+}
+
+.secondary-button {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+}
+
+.secondary-button:hover {
+  border-color: var(--accent);
+}
+
+.hint {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.hint.is-warning {
+  color: var(--warning);
+}
+
+/* ---- Cards ---- */
+
+.card {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.field > span {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.field output {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.field-inline {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.card-header .toggle {
+  margin-top: 0;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+input[type="color"] {
+  width: 48px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: none;
+}
+
+.bounds {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.bounds legend {
+  padding: 0 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.bounds label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.callout {
+  margin-top: 14px;
+  padding: 10px;
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  background: rgb(145 70 255 / 0.08);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.callout .secondary-button {
+  display: block;
+  margin-top: 8px;
+}
+
+.status-line {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.status-line[data-state="connected"],
+.status-line[data-state="running"] {
+  color: var(--ok);
+}
+
+.status-line[data-state="error"],
+.status-line[data-state="reconnecting"] {
+  color: var(--danger);
+}
+
+.panel-footer {
+  margin-top: 16px;
+}
+
+[hidden] {
+  display: none !important;
+}

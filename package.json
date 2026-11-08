@@ -1,0 +1,46 @@
+{
+  "name": "twitch-streamer-overlays",
+  "productName": "Twitch Streamer Overlays",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Overlays de cámara (compatible con NVIDIA Broadcast) y chat de Twitch, siempre encima del juego.",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "com.twitchstreameroverlays.app",
+    "productName": "Twitch Streamer Overlays",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "native/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "${productName} Setup ${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName} ${version} Portable.${ext}"
+    }
+  }
+}

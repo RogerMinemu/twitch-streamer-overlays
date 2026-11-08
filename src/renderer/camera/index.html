@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self' mediastream: blob:"
+    />
+    <title>Overlay · Cámara</title>
+    <link rel="stylesheet" href="../shared/overlay-frame.css" />
+    <link rel="stylesheet" href="camera.css" />
+  </head>
+  <body>
+    <div class="overlay-content">
+      <div id="camera-clip" class="camera-clip">
+        <video id="camera-video" class="camera-video" muted playsinline></video>
+        <canvas id="camera-canvas" class="camera-canvas"></canvas>
+      </div>
+      <p id="camera-message" class="camera-message" hidden></p>
+    </div>
+    <script type="module" src="camera.js"></script>
+  </body>
+</html>
